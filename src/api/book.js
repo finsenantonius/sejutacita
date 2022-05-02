@@ -21,13 +21,13 @@ export function useFetchBooks() {
 
 export function useFetchBooksByCategory(id, category) {
   const [books, setBooks] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [booksPerPage] = useState(10);
 
   useEffect(() => {
     const fetchBooks = async () => {
       const response = await fetch(`https://asia-southeast2-sejutacita-app.cloudfunctions.net/fee-assessment-books?categoryId=${id}`);
       const booksData = await response.json()
-      console.log(booksData);
       setBooks(booksData);
     };
     fetchBooks()

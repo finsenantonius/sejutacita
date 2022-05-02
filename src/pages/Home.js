@@ -5,6 +5,7 @@ import { useFetchBooks } from '../api/book'
 import Container from "../components/Container"
 import CategoryCard from '../components/CategoryCard'
 import BookCard from '../components/BookCard'
+import { Link } from 'react-router-dom'
 
 const Logo = styled.img`
   height: 44px;
@@ -73,7 +74,9 @@ export default function Home() {
           <BookList>
             {books &&
               books.map((item) => (
-                <BookCard cover={item.cover_url} title={item.title} author={item.authors[0]} key={item.id} />
+                <Link to={`/book/${item.id}`} state={{ data: item }} key={item.id}>
+                  <BookCard cover={item.cover_url} title={item.title} author={item.authors[0]} />
+                </Link>
               ))
             }
           </BookList>
