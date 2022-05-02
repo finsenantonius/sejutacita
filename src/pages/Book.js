@@ -1,25 +1,13 @@
 import { useState, useEffect } from 'react'
 import { useParams, useLocation } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import logo from '../assets/logo.webp'
 import useFetchCategories from '../api/category'
 import Container from "../components/Container"
-import CategoryCard from '../components/CategoryCard'
 import BookCard from '../components/BookCard'
 import Pagination from '../components/Pagination'
-
-const Logo = styled.img`
-  height: 44px;
-`
-
-const HeaderSection = styled.div`
-  padding: 1.5rem 0;
-  display: flex;
-`
-
-const CategorySection = styled.div`
-  padding: 1.5rem 0;
-`
+import Header from '../components/Header'
+import Categories from '../components/Categories'
 
 const BookSection = styled.div`
   padding: 1.5rem 0;
@@ -57,11 +45,6 @@ const SeachButton = styled.button`
   outline: none;
   color: #FFFFFF;
   cursor: pointer;
-`
-
-const CategoryList = styled.div`
-  display: flex;
-  gap: 20px;
 `
 
 const BookList = styled.div`
@@ -106,9 +89,14 @@ export default function Book() {
     if (search !== "") {
       let bookArray = []
       let data = books.find(e => e.title.toLowerCase() === search.toLowerCase() || e.authors[0].toLowerCase() === search.toLowerCase())
-      bookArray.push(data)
-      setBookResult(bookArray)
-      setOnSearch(true)
+
+      if (data) {
+        bookArray.push(data)
+        setBookResult(bookArray)
+        setOnSearch(true)
+      } else {
+        setOnSearch(false)
+      }
     } else {
       setOnSearch(false)
     }
@@ -117,24 +105,11 @@ export default function Book() {
   return (
     <div>
       <Container border="1px solid" borderColor="#e5e7eb">
-        <HeaderSection>
-          <a href='/'>
-            <Logo src={logo} />
-          </a>
-        </HeaderSection>
+        <Header />
       </Container>
 
       <Container>
-        <CategorySection>
-          <SectionTitle>Explore Categories</SectionTitle>
-          <CategoryList>
-            {categories && 
-              categories.map((item) => (
-                <CategoryCard data={item} key={item.name} active={id} />
-              ))
-            }
-          </CategoryList>
-        </CategorySection>
+        <Categories categories={categories} active={id} />
       </Container>
 
       <Container color="#f7fcff">
@@ -154,14 +129,18 @@ export default function Book() {
           <BookList display={onSearch ? "none" : "flex"} >
             {books &&
               currentBooks.map((item) => (
-                <BookCard cover={item.cover_url} title={item.title} author={item.authors[0]} key={item.id} />
+                <Link to={`/book/${item.id}`} state={{ data: item }} key={item.id}>
+                  <BookCard cover={item.cover_url} title={item.title} author={item.authors[0]} />
+                </Link>
               ))
             }
           </BookList>
           <BookList display={onSearch ? "flex" : "none"}>
             {books &&
               bookResult.map((item) => (
-                <BookCard cover={item.cover_url} title={item.title} author={item.authors[0]} key={item.id} />
+                <Link to={`/book/${item.id}`} state={{ data: item }} key={item.id}>
+                  <BookCard cover={item.cover_url} title={item.title} author={item.authors[0]} />
+                </Link>
               ))
             }
           </BookList>

@@ -1,24 +1,11 @@
-import styled from 'styled-components'
-import logo from '../assets/logo.webp'
-import useFetchCategories from '../api/category'
-import { useFetchBooks } from '../api/book'
-import Container from "../components/Container"
-import CategoryCard from '../components/CategoryCard'
-import BookCard from '../components/BookCard'
 import { Link } from 'react-router-dom'
-
-const Logo = styled.img`
-  height: 44px;
-`
-
-const HeaderSection = styled.div`
-  padding: 1.5rem 0;
-  display: flex;
-`
-
-const CategorySection = styled.div`
-  padding: 1.5rem 0;
-`
+import styled from 'styled-components'
+import useFetchCategories from '../api/category'
+import useFetchBooks from '../api/book'
+import Container from "../components/Container"
+import BookCard from '../components/BookCard'
+import Header from '../components/Header'
+import Categories from '../components/Categories'
 
 const BookSection = styled.div`
   padding: 1.5rem 0;
@@ -28,11 +15,6 @@ const SectionTitle = styled.h1`
   color: #2b46a6;
   margin: 0;
   margin-bottom: 16px;
-`
-
-const CategoryList = styled.div`
-  display: flex;
-  gap: 20px;
 `
 
 const BookList = styled.div`
@@ -48,24 +30,11 @@ export default function Home() {
   return (
     <div>
       <Container border="1px solid" borderColor="#e5e7eb">
-        <HeaderSection>
-          <a href='/'>
-            <Logo src={logo} />
-          </a>
-        </HeaderSection>
+        <Header />
       </Container>
 
       <Container>
-        <CategorySection>
-          <SectionTitle>Explore Categories</SectionTitle>
-          <CategoryList>
-            {categories && 
-              categories.map((item) => (
-                <CategoryCard data={item} key={item.name} />
-              ))
-            }
-          </CategoryList>
-        </CategorySection>
+        <Categories categories={categories} />
       </Container>
 
       <Container color="#f7fcff">
