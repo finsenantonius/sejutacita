@@ -6,12 +6,18 @@ import Header from '../components/Header'
 
 const BookDetailSection = styled.div`
   padding: 1.5rem 0;
+  @media (max-width: 768px) {
+    padding: 1.5rem 1rem;
+  }
 `
 
 const Flex = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 `
 
 const BookmarkButton = styled.button`
@@ -22,6 +28,33 @@ const BookmarkButton = styled.button`
   outline: none;
   color: #FFFFFF;
   cursor: pointer;
+  display: block;
+  @media (max-width: 768px) {
+    display: none;
+  }
+`
+
+const BookmarkButtonMobile = styled.button`
+  height: 45px;
+  background-color: #2b46a6;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: none;
+  @media (max-width: 768px) {
+    width: 100%;
+    display: block;
+  }
+`
+
+const CoverContainer = styled.div`
+  @media (max-width: 768px) {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 12px;
+  }
 `
 
 const BookCover = styled.img`
@@ -42,6 +75,9 @@ const Description = styled.p`
 const Box = styled.div`
   width: 100%;
   margin-left: 36px;
+  @media (max-width: 768px) {
+    margin: 0;
+  }
 `
 
 const Line = styled.hr`
@@ -77,6 +113,7 @@ export default function BookDetail() {
   const BookmarkBook = (data) => {
     let newData = [...userBook, data]
     localStorage.setItem("_user_books", JSON.stringify(newData))
+    alert('Success Save Book')
   }
 
   return (
@@ -88,7 +125,9 @@ export default function BookDetail() {
       <Container>
         <BookDetailSection>
           <Flex>
-            <BookCover src={data.cover_url} />
+            <CoverContainer>
+              <BookCover src={data.cover_url} />
+            </CoverContainer>
             <Box>
               <Flex>
                 <Heading>{data.title}</Heading>
@@ -107,6 +146,7 @@ export default function BookDetail() {
                 }
               </Divider>
             </Box>
+            <BookmarkButtonMobile onClick={() => BookmarkBook(data)}>Bookmark</BookmarkButtonMobile>
           </Flex>
         </BookDetailSection>
       </Container>

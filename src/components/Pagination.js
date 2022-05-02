@@ -10,6 +10,12 @@ const Ul = styled.ul`
   display: flex;
   text-align: center;
   gap: 12px;
+  @media (max-width: 768px) {
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 0;
+  }
 `
 
 const List = styled.li`

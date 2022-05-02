@@ -7,6 +7,9 @@ import BookCard from '../components/BookCard'
 
 const BookSection = styled.div`
   padding: 1.5rem 0;
+  @media (max-width: 768px) {
+    padding: 1.5rem 1rem;
+  }
 `
 
 const SectionTitle = styled.h1`
@@ -19,6 +22,9 @@ const BookList = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 60px 40px;
+  @media (max-width: 768px) {
+    gap: 30px 40px;
+  }
 `
 
 export default function Bookmark() {

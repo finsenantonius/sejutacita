@@ -11,12 +11,26 @@ import Categories from '../components/Categories'
 
 const BookSection = styled.div`
   padding: 1.5rem 0;
+  @media (max-width: 768px) {
+    padding: 1.5rem 1rem;
+  }
+`
+
+const PaginationSection = styled.div`
+  padding: 1.5rem 0;
+  @media (max-width: 768px) {
+    padding: 1.5rem 1rem;
+  }
 `
 
 const Flex = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
+  @media (max-width: 768px) {
+    width: 100%;
+    flex-direction: column;
+  }
 `
 
 const SectionTitle = styled.h1`
@@ -34,6 +48,12 @@ const SearchInput = styled.input`
   border-radius: 8px;
   outline: none;
   margin-right: 12px;
+  @media (max-width: 768px) {
+    width: 100%;
+    margin-bottom: 12px;
+    margin-right: 0;
+    padding: 0;
+  }
 `
 
 const SeachButton = styled.button`
@@ -45,12 +65,19 @@ const SeachButton = styled.button`
   outline: none;
   color: #FFFFFF;
   cursor: pointer;
+  @media (max-width: 768px) {
+    width: 100%;
+    margin-bottom: 20px;
+  }
 `
 
 const BookList = styled.div`
   display: ${props => props.display};
   flex-wrap: wrap;
   gap: 60px 40px;
+  @media (max-width: 768px) {
+    gap: 30px 40px;
+  }
 `
 
 export default function Book() {
@@ -145,9 +172,14 @@ export default function Book() {
             }
           </BookList>
         </BookSection>
-        <div style={{ display: onSearch ? 'none' : 'block' }}>
-          <Pagination booksPerPage={booksPerPage} totalBooks={books.length} paginate={paginate} />
-        </div>
+
+        <Container>
+          <PaginationSection>
+            <div style={{ display: onSearch ? 'none' : 'block' }}>
+              <Pagination booksPerPage={booksPerPage} totalBooks={books.length} paginate={paginate} />
+            </div>
+          </PaginationSection>
+        </Container>
       </Container>     
     </div>
   )

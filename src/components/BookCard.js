@@ -2,11 +2,17 @@ import styled from 'styled-components'
 
 const Container = styled.div`
   width: 180px;
+  @media (max-width: 768px) {
+    width: 150px;
+  }
 `
 
 const BookCover = styled.img`
   width: 180px;
   border-radius: 10px;
+  @media (max-width: 768px) {
+    width: 150px;
+  }
 `
 
 const BookTitle = styled.p`
